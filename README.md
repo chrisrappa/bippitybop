@@ -1,0 +1,1 @@
+This is a simplified app that allows for interaction with different AI models for free with no friction. 
