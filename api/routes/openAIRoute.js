@@ -5,7 +5,6 @@ import { convertCsvBufferToText, removeSystemMessage } from '../helpers.js';
 import fs from 'fs';
 import multer from 'multer';
 import DocUpload from '../models/uploadedDocModel.js';
-import mongoose from 'mongoose';
 import User from '../models/userModel.js';
 
 const router = express();
