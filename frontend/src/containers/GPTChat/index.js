@@ -12,7 +12,6 @@ import { useTheme } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ChatContainer, ChatInputContainer } from './styled';
 import { MESSAGES_COLLECTION_SAVE_SUCCESS } from '../../consts/gptChatConstants';
-import { subtractCreditsFromUser } from '../../actions/userActions';
 import { 
   createClaudeSonnetRequest, 
   createGrokRequest, 
@@ -41,7 +40,6 @@ function GPTChat() {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   const messsagesGlobalState = useSelector((state) => state.gptChat.messages);
-  const userInfo = useSelector((state) => state.userData.loginInfo);
   const userGenCredits = useSelector((state) => state?.userData?.loginInfo?.userCredits);
   const selectedVersion = useSelector((state) => state?.gptChat?.gptVersion);
 
@@ -69,12 +67,6 @@ function GPTChat() {
     const text = window.getSelection().toString();
     e.clipboardData.setData('text/plain', text);
   });
-
-  const handleSubtractCredits = () => {
-    if(selectedVersion !== 'ChatGPT 3.5' ){
-      dispatch(subtractCreditsFromUser(userInfo?.user_id, selectedVersion));
-    }
-  };
 
   const submitDemoMessage = debounce(async(demoMessage) => {
     const updatedMessages = [...messages, { role: 'user', content: demoMessage }];
@@ -144,8 +136,6 @@ function GPTChat() {
           stopGenerating
         );
       }
-
-      handleSubtractCredits();
 
     } catch (error) {
       console.error('Error sending message:', error);

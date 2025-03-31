@@ -18,7 +18,7 @@ const initialState = {
   },
   gptChat: {
     messages: [],
-    gptVersion: 'ChatGPT 3.5',
+    gptVersion: '',
     trialMessageSaves: [],
     ownedDbMessages: [],
     externalDbMessages: [],

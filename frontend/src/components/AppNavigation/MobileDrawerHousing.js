@@ -44,10 +44,7 @@ function MobileDrawerHousing({
           {theme.direction === 'rtl' ? <ChevronRightIcon sx={{color: '#C6C6C6'}} /> : <ChevronLeftIcon sx={{color: '#C6C6C6'}} />}
         </IconButton>
       </DrawerHeader>
-      <MobileDrawer
-        open={open} 
-        setOpen={setOpen} 
-      />
+      <MobileDrawer open={open} setOpen={setOpen} />
 
     </Drawer>
   );

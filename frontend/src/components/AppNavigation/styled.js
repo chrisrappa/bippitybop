@@ -7,8 +7,7 @@ import {
   AppBar as MuiAppBar,
   Drawer as MuiDrawer,
   AppBar,
-  Toolbar,
-  useTheme
+  Toolbar
 } from "@mui/material";
 
 const DrawerHeader = styled('div')(({ theme }) => ({

@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-	useTheme,
-	useMediaQuery
-} from '@mui/material';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from '@mui/material';
 import MobileDrawerHousing from './MobileDrawerHousing';
 import TopAppBar from './TopAppBar';
 import DesktopDrawerHousing from './DesktopDrawerHousing';
@@ -15,11 +10,6 @@ function AppNavigation({
 	drawerWidth,
 	...props
 }) {
-	
-	const theme 		=	useTheme();
-	const navigate 	= useNavigate();
-
-	const userInfo = useSelector((state) => state?.userData?.loginInfo);
 
 	// const iOS = process?.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 	const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
@@ -29,7 +19,6 @@ function AppNavigation({
 	const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen);
   };
-
 
 	return (
 		<>

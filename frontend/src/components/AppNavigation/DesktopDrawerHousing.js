@@ -3,6 +3,7 @@ import { DesktopDrawer, DesktopDrawerHeader, PrimaryTypography } from './styled'
 import { Divider, Grid, IconButton, useTheme } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import DesktopUserFlowNav from './DesktopUserFlowNav';
 
 function DesktopDrawerHousing({
   desktopDrawerOpen,
@@ -62,6 +63,7 @@ function DesktopDrawerHousing({
         }
       </DesktopDrawerHeader>
       <Divider />
+      <DesktopUserFlowNav open={desktopDrawerOpen} />
     </DesktopDrawer>
   )
 }
