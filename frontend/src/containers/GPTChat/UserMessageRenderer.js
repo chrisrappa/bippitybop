@@ -1,12 +1,9 @@
-import { Avatar, Grid, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { UserMessageBox } from "./styled";
 import { handleToHTML } from "./helpers";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-export default function UserMessageRenderer({
-  message,
-  userInfo
-}){
+export default function UserMessageRenderer({ message }){
 
   return (
     <UserMessageBox>
@@ -33,13 +30,7 @@ export default function UserMessageRenderer({
           justifyContent: 'flex-end'
         }}
       >
-        {
-          userInfo?.picture ? (
-            <Avatar alt="User" src={userInfo?.picture} />
-          ) : (
-            <AccountCircleIcon sx={{fontSize: '3rem', color: 'gray'}} />
-          )
-        }
+        <AccountCircleIcon sx={{fontSize: '3rem', color: 'gray'}} />
       </Grid>
     </UserMessageBox>
   )

@@ -1,18 +1,16 @@
 import React from 'react'
 import { DesktopDrawer, DesktopDrawerHeader, PrimaryTypography } from './styled';
-import { Divider, Grid, IconButton } from '@mui/material';
-import DesktopUserFlowNav from './DesktopUserFlowNav';
+import { Divider, Grid, IconButton, useTheme } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 function DesktopDrawerHousing({
-  theme,
   desktopDrawerOpen,
   handleDrawerToggle,
-  logout,
-  isAuthenticated,
-  userInfo,
+  drawerWidth
 }) {
+
+  const theme = useTheme();
   
   return (
     <DesktopDrawer
@@ -64,12 +62,6 @@ function DesktopDrawerHousing({
         }
       </DesktopDrawerHeader>
       <Divider />
-      <DesktopUserFlowNav
-        logout={logout}
-        open={desktopDrawerOpen}
-        isAuthenticated={isAuthenticated}
-        userInfo={userInfo}
-      />
     </DesktopDrawer>
   )
 }

@@ -167,8 +167,8 @@ const StyledToolbar = styled(Toolbar)(({theme}) => ({
 }));
 
 const ExpandableTopAppBar = styled(AppBar, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open, drawerWidth, isAuthenticated }) => ({
-    zIndex: isAuthenticated ? theme.zIndex.drawer + 1 : 100,
+  ({ theme, open, drawerWidth }) => ({
+    zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,

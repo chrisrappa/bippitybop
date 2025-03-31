@@ -13,13 +13,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ChatContainer, ChatInputContainer } from './styled';
 import { MESSAGES_COLLECTION_SAVE_SUCCESS } from '../../consts/gptChatConstants';
 import { subtractCreditsFromUser } from '../../actions/userActions';
-import { createClaudeSonnetRequest, createDeepseekRequest, createGrokRequest, createOpenAIRequest, createPerplexityRequest, createPersonalAssistantRequest } from './helpers';
+import { 
+  createClaudeSonnetRequest, 
+  createGrokRequest, 
+  createOpenAIRequest, 
+  createPerplexityRequest 
+} from './helpers';
 import { debounce } from 'lodash';
-import { useAuth0 } from '@auth0/auth0-react';
 import { useLocation } from 'react-router-dom';
 import InputField from './InputField.js';
 import FabMenu from './FabMenu.js';
-import { saveGPTMessage } from '../../actions/gptChatActions.js';
 import MessagesRenderer from './MessagesRenderer.js';
 
 // VERY IMPORTANT 
@@ -35,21 +38,14 @@ function GPTChat() {
   const location = useLocation();
   const recentHistory = localStorage.getItem('messageHistory') ?? [];
   const previouslySelectedVersion = localStorage.getItem('AIVersion') ?? 'GPT 3.5';
-  const { isAuthenticated } = useAuth0();
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   const messsagesGlobalState = useSelector((state) => state.gptChat.messages);
   const userInfo = useSelector((state) => state.userData.loginInfo);
   const userGenCredits = useSelector((state) => state?.userData?.loginInfo?.userCredits);
   const selectedVersion = useSelector((state) => state?.gptChat?.gptVersion);
-  const lastCreatedFolder = useSelector((state) => state?.gptChat?.latestCreatedFolder);
-  const { personalAssistantId, assistantThreadId } = useSelector((state) => state?.personalAssistantData);
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedFolder, setSelectedFolder] = useState(lastCreatedFolder);
-  const [selectedMessage, setSelectedMessage] = useState(null);
   const [isUserScrolledUp, setIsUserScrolledUp] = useState(false);
-  const [addNewFolder, setAddNewFolder] = useState(false);
   const [responseLoading, setResponseLoading] = useState(false);
   const [stopGenerating, setStopGenerating] = useState(false);
 
@@ -74,53 +70,10 @@ function GPTChat() {
     e.clipboardData.setData('text/plain', text);
   });
 
-  const handleClosePopover = () => {
-    setAddNewFolder(false);
-    setSelectedFolder(null);
-    setAnchorEl(null);
-    setSelectedMessage(null);
-  };
-
-  const handleSaveDoc = (selectedDocName) => {
-
-    const lastTenMessages = messages?.slice(-10);
-    
-    dispatch(
-      saveGPTMessage(
-        userInfo?.user_id, 
-        {
-          content: selectedMessage.content,
-          folderId: selectedFolder?._id,
-          docName: selectedDocName,
-          savedMessageHistory: lastTenMessages,
-          isAuthenticated: isAuthenticated
-        }, 
-        dispatch
-      )
-    );
-
-    handleClosePopover();
-  };
-  
-  const handleFolderChange = (folderData) => {
-    setSelectedFolder(folderData);
-  };
-
-  const handleClick = (event, message) => {
-    setAnchorEl(event?.currentTarget);
-    setSelectedMessage(message);
-  };
-
   const handleSubtractCredits = () => {
     if(selectedVersion !== 'ChatGPT 3.5' ){
       dispatch(subtractCreditsFromUser(userInfo?.user_id, selectedVersion));
     }
-  };
-
-  const handleClose = () => {
-    setAddNewFolder(false);
-    setSelectedFolder(null);
-    setAnchorEl(null);
   };
 
   const submitDemoMessage = debounce(async(demoMessage) => {
@@ -136,8 +89,6 @@ function GPTChat() {
         setStopGenerating,
         setResponseLoading,
         stopGenerating,
-        assistantThreadId,
-        personalAssistantId
       );
     } catch (error) {
       console.error('Error sending message:', error);
@@ -161,23 +112,8 @@ function GPTChat() {
           setStopGenerating,
           setResponseLoading,
           stopGenerating,
-          assistantThreadId,
-          personalAssistantId
         );
       };
-
-      if(selectedVersion === 'My Assistant'){
-        await createPersonalAssistantRequest(
-          userMessage, 
-          selectedVersion ?? previouslySelectedVersion, 
-          setMessages,
-          setStopGenerating,
-          setResponseLoading,
-          stopGenerating,
-          assistantThreadId,
-          personalAssistantId
-        )
-      }
 
       if(selectedVersion === 'Claude'){
         await createClaudeSonnetRequest(
@@ -201,16 +137,6 @@ function GPTChat() {
 
       if(selectedVersion === 'Perplexity'){
         await createPerplexityRequest(
-          updatedMessages, 
-          setMessages,
-          setStopGenerating,
-          setResponseLoading,
-          stopGenerating
-        );
-      }
-
-      if(selectedVersion === 'DeepSeek AI'){
-        await createDeepseekRequest(
           updatedMessages, 
           setMessages,
           setStopGenerating,
@@ -281,10 +207,6 @@ function GPTChat() {
       // eslint-disable-next-line
   }, [messages, isUserScrolledUp]);
 
-  useMemo(() => {
-    setSelectedFolder(lastCreatedFolder);
-  }, [lastCreatedFolder])
-
   return (
     <Grid 
       className='ask-question'
@@ -311,17 +233,6 @@ function GPTChat() {
         <ChatContainer ref={chatContainerRef}>
           <MessagesRenderer
             messages={ messages }
-            userInfo={ userInfo }
-            addNewFolder={ addNewFolder }
-            handleClose={ handleClose }
-            setAddNewFolder={ setAddNewFolder }
-            setSelectedFolder={ setSelectedFolder }
-            selectedFolder={ selectedFolder }
-            handleSaveDoc={ handleSaveDoc }
-            handleChange={ handleFolderChange }
-            handleClick={ handleClick }
-            anchorEl={ anchorEl }
-            handleClosePopover={ handleClosePopover }
             submitDemoMessage={ submitDemoMessage }
           />
         </ChatContainer>
@@ -346,15 +257,11 @@ function GPTChat() {
             selectedVersion={selectedVersion}
             userGenCredits={userGenCredits}
           />
-          {
-            isAuthenticated && (
-              <FabMenu 
-                isMobile={isMobile}
-                setMessages={setMessages}
-                messages={messages}
-              />
-            )
-          }
+          <FabMenu 
+            isMobile={isMobile}
+            setMessages={setMessages}
+            messages={messages}
+          />
         </ChatInputContainer>
       </Grid>
     </Grid>

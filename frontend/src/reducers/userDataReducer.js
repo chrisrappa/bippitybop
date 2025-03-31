@@ -5,9 +5,6 @@ import {
   EDIT_USERNAME_EMAIL_SUCCESS,
   EDIT_USERNAME_EMAIL_FAIL,
   USER_DELETE_SUCCESS,
-  USER_SUB_DATA_UPDATE_FAIL,
-  USER_SUB_DATA_UPDATE_REQUEST,
-  USER_SUB_DATA_UPDATE_SUCCESS,
 } from "../consts/userConstants";
 
 export const userDataReducer = (state = {}, action) => {
@@ -58,16 +55,6 @@ export const userDataReducer = (state = {}, action) => {
         ...state,
         userProfileDeleted: true,
         loginInfo: {}
-      }
-    case USER_SUB_DATA_UPDATE_SUCCESS:
-      return {
-        ...state,
-        loginInfo: {
-          ...state.loginInfo,
-          subscriptionStatus: action.payload.subscriptionStatus,
-          subscriptionPriceId: action.payload.subscriptionPriceId,
-          subscriptionProductId: action.payload.subscriptionProductId
-        }
       }
     default: return {
       ...state
