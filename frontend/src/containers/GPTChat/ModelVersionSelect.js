@@ -77,8 +77,8 @@ export default function ModelVersionSelect() {
           <img 
             height={'30px'}
             width={'30px'}
-            src={selectedVersionObject.icon ?? 'https://res.cloudinary.com/djrbfvpit/image/upload/v1732037023/GPTOrg%20Assets/AI%20Logos/chatgptlogo_ti0zkp.png'} 
-            alt={selectedVersionObject.name} 
+            src={selectedVersionObject?.icon ?? 'https://res.cloudinary.com/djrbfvpit/image/upload/v1732037023/GPTOrg%20Assets/AI%20Logos/chatgptlogo_ti0zkp.png'} 
+            alt={selectedVersionObject?.name} 
             style={{ marginRight: '1rem'}}
           />
           <Typography variant='h5' sx={{color: 'black'}}>

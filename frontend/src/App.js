@@ -11,10 +11,10 @@ import { useState } from 'react';
 import Support from './views/Support';
 import ChatHistoryList from './views/ChatHistoryList';
 import AIChat from './views/AppHome';
+import { drawerWidth } from './components/AppNavigation/styled';
 
 function App() {
 
-	const drawerWidth = 240;
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   const [drawerOpen, setDrawerOpen] = useState(isMobile ? false : true);

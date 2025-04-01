@@ -10,6 +10,8 @@ import {
   Toolbar
 } from "@mui/material";
 
+export const drawerWidth = 200;
+
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -72,8 +74,6 @@ const PrimaryTypography = styled(Typography)(({theme}) => ({
   fontFamily: `${theme.typography.primary.fontFamily}`,
   // fontSize: '1.5rem'
 }));
-
-const drawerWidth = 200;
 
 export const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -174,8 +174,8 @@ const ExpandableTopAppBar = styled(AppBar, { shouldForwardProp: (prop) => prop !
     }),
     width: `calc(100dvw - ${drawerWidth}px)`,
     ...(open && {
-      marginLeft: `${drawerWidth}px`,
-      width: `calc(100dvw - ${drawerWidth}px)`,
+      // marginLeft: `${drawerWidth}px`,
+      width: `calc(100% - ${drawerWidth}px)`,
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,

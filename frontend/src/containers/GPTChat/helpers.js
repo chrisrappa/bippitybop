@@ -18,6 +18,8 @@ export const createOpenAIRequest = async(
   stopGenerating,
 ) => {
 
+  console.log('updated mssgs', updatedMessages);
+
   const response = await fetch(
     `${process.env.REACT_APP_API_PATH}api/openai`, 
     {

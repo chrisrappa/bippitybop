@@ -25,7 +25,7 @@ function TopAppBar({
       position="fixed" 
       open={drawerOpen} 
       drawerWidth={drawerWidth}
-      elevation={0} 
+      elevation={5} 
       sx={{
         backgroundColor: '#f9fbff', 
       }}
@@ -81,7 +81,12 @@ function TopAppBar({
                 <Grid display={'flex'} alignItems={'center'}>
                   {
                     !isMobile && (
-                      <Typography variant='h5' sx={{ marginRight: '1rem'}}>Select AI: </Typography>
+                      <Typography 
+                        variant='h5' 
+                        sx={{ marginRight: '1rem', marginLeft: '1rem'}}
+                      >
+                        Select AI: 
+                      </Typography>
                     )
                   }
                   <ModelVersionSelect />
