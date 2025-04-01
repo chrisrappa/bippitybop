@@ -1,6 +1,7 @@
 import { 
   Grid, 
   IconButton,
+  Typography,
   useMediaQuery
 } from '@mui/material';
 import React from 'react'
@@ -77,7 +78,10 @@ function TopAppBar({
                 window.location.pathname === '/ai-chat' ||
                 window.location.pathname === '/'       
               ) && (
-                <ModelVersionSelect />
+                <Grid display={'flex'} alignItems={'center'}>
+                  <Typography variant='h5' sx={{ marginRight: '1rem'}}>Select AI: </Typography>
+                  <ModelVersionSelect />
+                </Grid>
               )
             }
           </Grid>

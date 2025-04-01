@@ -19,12 +19,6 @@ const examplePromptButtons = [
     icon: <ShareOutlinedIcon sx={{ color: 'orange'}} />,
     textContent: 'Create a easy, well structured social media marketing plan outline for a small business.'
   },
-  {
-    title: "Visit the FAQ for How-To's",
-    icon: <HelpOutlineOutlinedIcon />,
-    textContent: null,
-    link: '/faq'
-  }
 ];
 
 export default examplePromptButtons;

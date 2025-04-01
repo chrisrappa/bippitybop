@@ -44,6 +44,8 @@ export default function ModelVersionSelect() {
     setOpen(false);
   };
 
+  const selectedVersionObject = AllGPTOptions.find((item) => item?.name === selectedVersion);
+
   useEffect(() => {
     if(localStorageVersion){
       dispatch(updateGPTVersion(localStorageVersion, dispatch))
@@ -51,8 +53,6 @@ export default function ModelVersionSelect() {
       dispatch(updateGPTVersion(AllGPTOptions[0].name, dispatch))
     }
   }, [])
-
-  console.log('first option', AllGPTOptions[0].name)
 
   return (
     <Grid 
@@ -74,7 +74,14 @@ export default function ModelVersionSelect() {
         sx={{ backgroundColor: 'transparent', display: 'flex', justifyContent: 'space-between', width: '100%'}}
       >
         <Button onClick={handleToggle} sx={{borderRight: 'none!important'}}>
-          <Typography variant='h7' sx={{color: 'black'}}>
+          <img 
+            height={'30px'}
+            width={'30px'}
+            src={selectedVersionObject.icon ?? 'https://res.cloudinary.com/djrbfvpit/image/upload/v1732037023/GPTOrg%20Assets/AI%20Logos/chatgptlogo_ti0zkp.png'} 
+            alt={selectedVersionObject.name} 
+            style={{ marginRight: '1rem'}}
+          />
+          <Typography variant='h5' sx={{color: 'black'}}>
             {selectedVersion ?? AllGPTOptions[0].name}
           </Typography>
         </Button>
