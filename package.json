@@ -1,5 +1,6 @@
 {
   "name": "bippitybop_mern",
+  "type": "module",
   "version": "1.0.0",
   "description": "MERN Simplified AI switching web app",
   "main": "server.js",
