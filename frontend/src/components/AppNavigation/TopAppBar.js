@@ -52,7 +52,7 @@ function TopAppBar({
               display: isMobile ? 'block' : 'none',
             }}
           >
-            <MenuIcon sx={{color: '#84A8FF', fontSize: '2rem'}} />
+            <MenuIcon sx={{color: '#52985b', fontSize: '2rem'}} />
           </IconButton>
         </Grid>
         <Grid 

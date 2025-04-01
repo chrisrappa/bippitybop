@@ -67,7 +67,7 @@ function MobileDrawer({
 									sx={{ 
 										opacity: open ? 1 : 0, 
 										fontFamily: `${theme.typography.secondary.fontFamily}`, 
-										color: '#C6C6C6'
+										color: 'white'
 									}} 
 								/>
 							</ListItemButton>

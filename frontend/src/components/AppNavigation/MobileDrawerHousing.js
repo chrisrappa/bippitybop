@@ -3,6 +3,7 @@ import {
   Drawer, 
   IconButton,
   ListItem,
+  Typography,
   useTheme
 } from '@mui/material';
 import { DrawerHeader, PrimaryTypography } from './styled';
@@ -42,21 +43,13 @@ function MobileDrawerHousing({
     >
       <DrawerHeader>
         <ListItem>
-          <img 
-            src='https://res.cloudinary.com/djrbfvpit/image/upload/v1709418293/mzr2h6c092lo5j4lnixv.png' 
-            alt='logo'
-            height='25px' 
-            width='25px'
-            style={{ marginRight: '0.5rem' }}
-          />
-          <PrimaryTypography
-            variant="body2" 
-            // noWrap 
+          <Typography
+            variant="h5" 
             component="div" 
-            sx={{ color: 'white' }}
+            sx={{ color: 'white', fontFamily: 'Mogra' }}
           >
-            GPT Organized
-          </PrimaryTypography>
+            bippitybop
+          </Typography>
         </ListItem>
         <IconButton onClick={handleDrawerToggle}>
           {theme.direction === 'rtl' ? <ChevronRightIcon sx={{color: '#C6C6C6'}} /> : <ChevronLeftIcon sx={{color: '#C6C6C6'}} />}
