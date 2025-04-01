@@ -83,7 +83,11 @@ function TopAppBar({
                     !isMobile && (
                       <Typography 
                         variant='h5' 
-                        sx={{ marginRight: '1rem', marginLeft: '1rem'}}
+                        sx={{ 
+                          marginRight: '1rem',
+                          marginLeft: '1rem',
+                          color: '#818181'
+                        }}
                       >
                         Select AI: 
                       </Typography>

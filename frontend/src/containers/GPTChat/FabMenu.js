@@ -68,7 +68,7 @@ function FabMenu({
           flex: '1', 
           maxWidth: '2.5rem', 
           marginLeft: '1rem',
-          background: `linear-gradient(to left, #507CE6 0%, #84A8FF 100%)` 
+          background: `linear-gradient(to left, #52985b 0%, #a1dbb0 100%)` 
         }}
         onClick={handleClick}
       >

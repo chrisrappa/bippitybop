@@ -1,6 +1,6 @@
 import React from 'react'
 import { DesktopDrawer, DesktopDrawerHeader, PrimaryTypography } from './styled';
-import { Divider, Grid, IconButton, useTheme } from '@mui/material';
+import { Divider, Grid, IconButton, Typography, useTheme } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import DesktopUserFlowNav from './DesktopUserFlowNav';
@@ -29,25 +29,17 @@ function DesktopDrawerHousing({
                 flex: '1', 
                 width: '100%', 
                 alignItems: 'center', 
-                justifyContent: 'flex-end',
+                justifyContent: 'flex-start',
+                marginLeft: '1rem'
               }}
             >
-              
-              <img 
-                src='https://res.cloudinary.com/djrbfvpit/image/upload/v1709418293/mzr2h6c092lo5j4lnixv.png' 
-                alt='logo'
-                height='25px' 
-                width='25px'
-                style={{ marginLeft: '0.5rem', marginRight: '0.5rem' }}
-              />
-              <PrimaryTypography
-                variant="body2" 
-                // noWrap 
+              <Typography
+                variant="h5" 
                 component="div" 
-                sx={{ color: 'white' }}
+                sx={{ color: 'white', fontFamily: 'Mogra' }}
               >
-                GPT Organized
-              </PrimaryTypography>
+                bippitybop
+              </Typography>
             </Grid>
           )
         }

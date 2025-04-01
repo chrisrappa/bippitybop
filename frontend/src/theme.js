@@ -2,9 +2,9 @@ import { createTheme } from '@mui/material';
 // Colors
 
 // Mains - Opacity
-const primaryLight = 'rgba(132, 168, 255, 0.25)'
-const primaryMedium = 'rgba(159,128,101, 0.35)'
-const primaryFull = '#84A8FF';
+const primaryLight = 'rgba(82, 152, 91, 0.25)'
+const primaryMedium = 'rgba(82, 152, 91, 0.35)'
+const primaryFull = '#52985b';
 
 // Secondaries - Opacity
 const secondaryLight = 'rgba(102,161,140, 0.15)';
@@ -37,8 +37,7 @@ const secondaryButtonColor = `${secondaryFull}`;
 const primaryInsetBoxShadow = 'inset 0px 3.5px 10px rgba(56,56,55, 0.5)';
 
 // JSX Component Colors
-// const mainBackground = `${grayFull}`;
-const navbarBackground = `#132A61`;
+const navbarBackground = `#52985b`;
 const contentAreadBackground = '#F9FBFF';
 
 // Fonts
