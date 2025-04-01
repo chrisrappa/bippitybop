@@ -23,7 +23,7 @@ function MobileDrawer({
   return (
     <Grid sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100dvh'}}>
 			<Divider />
-			<List sx={{paddingTop: '0', display: 'flex', justifyContent: 'space-between', flexDirection: 'column', flex: '1'}}>
+			<List sx={{paddingTop: '0', display: 'flex', flexDirection: 'column', flex: '1'}}>
 				{
 					navigationOptions.map((option, index) => (
 						<ListItem

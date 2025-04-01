@@ -79,7 +79,11 @@ function TopAppBar({
                 window.location.pathname === '/'       
               ) && (
                 <Grid display={'flex'} alignItems={'center'}>
-                  <Typography variant='h5' sx={{ marginRight: '1rem'}}>Select AI: </Typography>
+                  {
+                    !isMobile && (
+                      <Typography variant='h5' sx={{ marginRight: '1rem'}}>Select AI: </Typography>
+                    )
+                  }
                   <ModelVersionSelect />
                 </Grid>
               )
