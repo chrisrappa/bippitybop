@@ -38,7 +38,7 @@ function DesktopDrawerHousing({
                 component="div" 
                 sx={{ color: 'white', fontFamily: 'Mogra' }}
               >
-                bippitybop
+                bippityblop
               </Typography>
             </Grid>
           )

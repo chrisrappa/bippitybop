@@ -48,7 +48,7 @@ function MobileDrawerHousing({
             component="div" 
             sx={{ color: 'white', fontFamily: 'Mogra' }}
           >
-            bippitybop
+            bippityblop
           </Typography>
         </ListItem>
         <IconButton onClick={handleDrawerToggle}>
