@@ -5,18 +5,14 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import DesktopUserFlowNav from './DesktopUserFlowNav';
 
-function DesktopDrawerHousing({
-  desktopDrawerOpen,
-  handleDrawerToggle,
-  drawerWidth
-}) {
+function DesktopDrawerHousing({ desktopDrawerOpen }) {
 
   const theme = useTheme();
   
   return (
     <DesktopDrawer
       variant="permanent"
-      open={desktopDrawerOpen}
+      open
       anchor='left'
       bgColor={`${theme.toolbars.desktopNav.backgroundColor}`}
     >
@@ -38,24 +34,14 @@ function DesktopDrawerHousing({
                 component="div" 
                 sx={{ color: 'white', fontFamily: 'Mogra' }}
               >
-                bippityblop
+                bippitybop
               </Typography>
             </Grid>
           )
         }
-        {desktopDrawerOpen ? (
-            <IconButton onClick={handleDrawerToggle} sx={{}}>
-              <ChevronLeftIcon sx={{color: '#C6C6C6'}} />
-            </IconButton>
-          ) : (
-            <IconButton onClick={handleDrawerToggle}>
-              <ChevronRightIcon sx={{color: '#C6C6C6'}} />
-            </IconButton>
-          )
-        }
       </DesktopDrawerHeader>
       <Divider />
-      <DesktopUserFlowNav open={desktopDrawerOpen} />
+      <DesktopUserFlowNav open={true} />
     </DesktopDrawer>
   )
 }

@@ -46,7 +46,7 @@ function MobileDrawerHousing({
           <Typography
             variant="h5" 
             component="div" 
-            sx={{ color: 'white', fontFamily: 'Mogra' }}
+            sx={{ color: 'white', fontFamily: 'Mogra', marginLeft: '2rem' }}
           >
             bippityblop
           </Typography>

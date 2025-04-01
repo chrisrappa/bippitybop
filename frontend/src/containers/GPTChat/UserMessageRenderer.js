@@ -18,7 +18,7 @@ export default function UserMessageRenderer({ message }){
           overflow: 'auto',
         }}
       >
-        <Typography variant='h7'>
+        <Typography variant='h7' sx={{ color: 'black' }}>
           {handleToHTML(message?.content)}
         </Typography>
       </Grid>

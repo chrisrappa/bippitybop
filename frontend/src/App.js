@@ -25,25 +25,23 @@ function App() {
   );
   
   return (
-    <>
-      <AppContainer>
-			  <CssBaseline />
-        <AppNavigation
-          setDrawerOpen={setDrawerOpen} 
-          drawerOpen={drawerOpen} 
-          drawerWidth={drawerWidth}
-        />
-        <Routes>
+    <AppContainer>
+      <CssBaseline />
+      <AppNavigation
+        setDrawerOpen={setDrawerOpen} 
+        drawerOpen={drawerOpen} 
+        drawerWidth={drawerWidth}
+      />
+      <Routes>
 
-            <Route path = "/" element={<Navigate to="/ai-chat" />} />
+          <Route path = "/" element={<Navigate to="/ai-chat" />} />
 
-            <Route path = "/support"        element = { <Support         drawerOpen={drawerOpen} drawerWidth={drawerWidth} /> } />
-            <Route path = "/profile/:slug"  element = { <Profile         drawerOpen={drawerOpen} drawerWidth={drawerWidth} /> } />
-            <Route path = "/ai-chat"        element = { <AIChat          drawerOpen={drawerOpen} drawerWidth={drawerWidth} /> } />                        
-            <Route path = "/chat-history"   element = { <ChatHistoryList drawerOpen={drawerOpen} drawerWidth={drawerWidth} /> } />                      
-        </Routes>
-      </AppContainer>
-    </>
+          <Route path = "/support"        element = { <Support         drawerOpen={drawerOpen} drawerWidth={drawerWidth} /> } />
+          <Route path = "/profile/:slug"  element = { <Profile         drawerOpen={drawerOpen} drawerWidth={drawerWidth} /> } />
+          <Route path = "/ai-chat"        element = { <AIChat          drawerOpen={drawerOpen} drawerWidth={drawerWidth} /> } />                        
+          <Route path = "/chat-history"   element = { <ChatHistoryList drawerOpen={drawerOpen} drawerWidth={drawerWidth} /> } />                      
+      </Routes>
+    </AppContainer>
   );
 };
 

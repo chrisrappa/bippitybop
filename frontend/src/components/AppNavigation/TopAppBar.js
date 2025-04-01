@@ -70,7 +70,7 @@ function TopAppBar({
               display: 'flex', 
               flex: isMobile ? '2' : '1', 
               width: '100%', 
-              justifyContent: isMobile ? 'flex-end' : 'flex-start'
+              justifyContent: isMobile ? 'center' : 'flex-start'
             }}
           >
             {

@@ -59,7 +59,12 @@ const ChatInputContainer = styled(Box)(({theme}) => ({
   width: '100%',
   height: '100%',
   justifyContent: 'center',
-  padding: '1rem'
+  padding: '1rem',
+  paddingLeft: '0',
+  paddingRight: '0',
+  [theme.breakpoints.up('md')]: {
+    maxWidth: '75dvw'
+  }
 }));
 
 const FullChatContainer = styled(Box)({

@@ -170,7 +170,7 @@ const theme = createTheme({
             width: '0.5rem'
           },
           '*::-webkit-scrollbar-thumb': {
-            backgroundColor: `#84A8FF`,
+            backgroundColor: `#52985b`,
             borderRadius: '1rem',
           },
           '*::-webkit-scrollbar-thumb:hover': {

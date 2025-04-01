@@ -49,4 +49,9 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   }),
 );
 
-export { AppContainer, StyledMaterialDesignContent, DrawerHeader, Main };
+export { 
+  AppContainer, 
+  StyledMaterialDesignContent, 
+  DrawerHeader, 
+  Main 
+};
