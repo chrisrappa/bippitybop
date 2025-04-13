@@ -27,28 +27,17 @@ router.use(express.text({ type: 'text/event-stream' }));
 
 router.post('/', async(req, res) => {
   const messages = req.body.messages;
+  const systemMessage = req.body.systemMessage;
+  console.log('messages', messages);
   const justConversationMessages = removeSystemMessage(messages);
-  const selectedVersion = req.body.selectedVersion;
-
-  const useSelectedVersion = () => {
-    switch(selectedVersion){
-      case 'GPT 3.5':
-        return 'gpt-3.5-turbo';
-      case 'GPT 4':
-        return 'gpt-4-turbo';
-      case 'GPT 4o': 
-        return 'gpt-4o';
-      default: return 'gpt-3.5-turbo'
-    };
-  };
 
   // the coder assistant type is extremely general atm
   const stream = await openai.chat.completions.create({
-    model: useSelectedVersion(),
+    model: 'gpt-4o',
     messages: [
       {
         role: 'system',
-        content: 'You are Chat GPT, a helpful assistant. You responses are easily displayed with react-html-parser and easily edited with MDX Editor'
+        content: `${systemMessage}`
       },
       ...justConversationMessages
     ],

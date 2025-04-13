@@ -23,6 +23,7 @@ import { useLocation } from 'react-router-dom';
 import InputField from './InputField.js';
 import FabMenu from './FabMenu.js';
 import MessagesRenderer from './MessagesRenderer.js';
+import ChatRequestHandler from './ChatRequestHandler.js';
 
 // VERY IMPORTANT 
 // Maintains scroll position due to DOM rerendering upon subtracting credits
@@ -93,49 +94,15 @@ function GPTChat() {
 
     try {
       
-      if(
-        selectedVersion === 'ChatGPT 3.5' || 
-        selectedVersion === 'ChatGPT 4o'  
-      ){
-        await createOpenAIRequest(
-          updatedMessages, 
-          selectedVersion ?? previouslySelectedVersion, 
-          setMessages,
-          setStopGenerating,
-          setResponseLoading,
-          stopGenerating,
-        );
-      };
-
-      if(selectedVersion === 'Claude'){
-        await createClaudeSonnetRequest(
-          updatedMessages, 
-          setMessages,
-          setStopGenerating,
-          setResponseLoading,
-          stopGenerating
-        );
-      };
-
-      if(selectedVersion === 'Grok xAI'){
-        await createGrokRequest(
-          updatedMessages, 
-          setMessages,
-          setStopGenerating,
-          setResponseLoading,
-          stopGenerating
-        );
-      }
-
-      if(selectedVersion === 'Perplexity'){
-        await createPerplexityRequest(
-          updatedMessages, 
-          setMessages,
-          setStopGenerating,
-          setResponseLoading,
-          stopGenerating
-        );
-      }
+      console.log('updated messages', updatedMessages)
+      await ChatRequestHandler({
+        updatedMessages: updatedMessages,
+        selectedVersion: selectedVersion ?? previouslySelectedVersion, 
+        setMessages: setMessages,
+        setStopGenerating: setStopGenerating,
+        setResponseLoading: setResponseLoading,
+        stopGenerating: stopGenerating,
+    });
 
     } catch (error) {
       console.error('Error sending message:', error);
@@ -236,10 +203,19 @@ function GPTChat() {
           display: 'flex', 
           justifyContent: 'center', 
           alignItems: 'center',
-          padding: isMobile && '0 0.5rem'
+          padding: isMobile && '0 0.5rem',
+          position: 'relative' // Add this
         }}
       >
-        <ChatInputContainer>
+        <ChatInputContainer
+          sx={{
+            position: 'absolute', // Add this
+            bottom: 0, // Add this
+            width: '100%', // Add this if needed
+            display: 'flex',
+            alignItems: 'flex-end' // Add this to keep everything aligned at the bottom
+          }}
+        >
           <InputField 
             inputRef={inputRef} 
             handleSend={handleSend} 

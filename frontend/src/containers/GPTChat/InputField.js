@@ -19,11 +19,12 @@ function InputField({
   return (
     <CustomTextField
       name="subject"
-      label={`Message ${selectedVersion}`}
+      label={`Message ${selectedVersion.name}`}
       ref={inputRef}
       variant="outlined"
       multiline
-      maxRows={1}
+      minRows={1}
+      maxRows={4}
       onFocus={event => {
         event.target.select();
       }}
@@ -31,7 +32,19 @@ function InputField({
       onKeyDown={(e) => handleKeyDown(e, setInput, setTimeout, handleSend, responseLoading)}
       onChange={(e) => setInput(e.target.value)}
       value={input}
-      sx={{backgroundColor: '#EEF2FC', borderRadius: '2rem', flex: isMobile ? '4' : '9'}}
+      sx={{
+        backgroundColor: '#EEF2FC', 
+        borderRadius: '2rem', 
+        flex: isMobile ? '4' : '9',
+        '& .MuiInputBase-root': {
+          maxHeight: '150px', // Adjust this value based on your needs
+          overflowY: 'auto',
+        },
+        '& .MuiOutlinedInput-input': {
+          maxHeight: '150px', // Should match the above value
+          overflowY: 'auto',
+        },
+      }}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
@@ -55,7 +68,6 @@ function InputField({
                     handleSend(input);
                     setInput('');
                   }}
-                  disabled={(selectedVersion === 'GPT 4o') && (userGenCredits < 6)}
                 >
                   <ArrowUpwardIcon />
                 </IconButton>

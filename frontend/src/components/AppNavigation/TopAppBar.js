@@ -10,7 +10,7 @@ import {
   StyledToolbar, 
 } from './styled';
 import MenuIcon from '@mui/icons-material/Menu';
-import ModelVersionSelect from '../../containers/GPTChat/ModelVersionSelect';
+import AIPalSwitch from '../AIPalSwitch';
 
 function TopAppBar({
   drawerOpen,
@@ -89,11 +89,11 @@ function TopAppBar({
                           color: '#818181'
                         }}
                       >
-                        Select AI: 
+                        Select AI Pal: 
                       </Typography>
                     )
                   }
-                  <ModelVersionSelect />
+                  <AIPalSwitch />
                 </Grid>
               )
             }

@@ -10,6 +10,7 @@ router.use(express.json());
 
 router.post('/', async (req, res) => {
   const messages = req.body.messages;
+  const systemMessage = req.body.systemMessage;
   const justConversationMessages = removeSystemMessage(messages);
 
   // Set headers for SSE
@@ -32,7 +33,7 @@ router.post('/', async (req, res) => {
         messages: [
           {
             role: 'system',
-            content: 'You are Perplexity, a helpful assistant that uses websearch to get the best most up to date information.'
+            content: `${systemMessage}`
           },
           ...justConversationMessages
         ],

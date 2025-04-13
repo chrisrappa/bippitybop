@@ -59,16 +59,16 @@ function FabMenu({
   const id = open ? 'simple-popover' : undefined;
 
   return (
-    <Grid sx={{flex: '1'}}>
+    <Grid sx={{flex: '1', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
       <Fab 
-        size="small" 
+        size="medium" 
         color="secondary" 
         aria-label="add" 
         sx={{
           flex: '1', 
-          maxWidth: '2.5rem', 
-          marginLeft: '1rem',
-          background: `linear-gradient(to left, #52985b 0%, #a1dbb0 100%)` 
+          maxWidth: '3rem', 
+          background: `linear-gradient(to left, #52985b 0%, #a1dbb0 100%)`,
+          alignSelf: 'center'
         }}
         onClick={handleClick}
       >

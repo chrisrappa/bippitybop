@@ -34,7 +34,7 @@ function DesktopDrawerHousing({ desktopDrawerOpen }) {
                 component="div" 
                 sx={{ color: 'white', fontFamily: 'Mogra' }}
               >
-                bippitybop
+                Pal Switch
               </Typography>
             </Grid>
           )

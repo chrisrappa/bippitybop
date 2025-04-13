@@ -13,6 +13,7 @@ router.use(express.json());
 router.post('/', async (req, res) => {
   try {
     const messages = req.body.messages || [];
+    const systemMessage = req.body.systemMessage;
     const justConversationMessages = removeSystemMessage(messages);
 
     // Set up SSE headers
@@ -26,7 +27,7 @@ router.post('/', async (req, res) => {
       model: "claude-3-5-sonnet-20241022",
       max_tokens: 2000,
       temperature: 0,
-      system: "You are Claude, a helpful A.I. assistant that is especially helpful with copy-writing and coding.",
+      system: `${systemMessage}`,
       messages: justConversationMessages.length > 0 ? justConversationMessages : [
         {
           "role": "user",

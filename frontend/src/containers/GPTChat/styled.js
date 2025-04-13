@@ -88,6 +88,7 @@ const CustomTextField = styled(TextField)(({theme}) => ({
       borderColor: `${theme.palette.secondary.main}`,
     },
     color: `${theme.palette.grays.main}`,
+    padding: '0.75rem'
   },
   '& .MuiInputLabel-root': {
     color: `gray`,

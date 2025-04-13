@@ -7,7 +7,7 @@ const saveMessagesToLocalStorage = (messages, maxMessages = 10) => {
   };
 
   localStorage.setItem('messageHistory', JSON.stringify(messages));
-}
+};
 
 export const createOpenAIRequest = async(
   updatedMessages, 
@@ -17,8 +17,6 @@ export const createOpenAIRequest = async(
   setResponseLoading,
   stopGenerating,
 ) => {
-
-  console.log('updated mssgs', updatedMessages);
 
   const response = await fetch(
     `${process.env.REACT_APP_API_PATH}api/openai`, 
