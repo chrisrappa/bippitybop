@@ -10,10 +10,12 @@ import {
 } from '@mui/material';
 import MarkdownRenderer from './MarkdownRenderer';
 import AutoSizer from 'react-virtualized-auto-sizer';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 
 function MessagesRenderer({
   messages, 
-  palName,
+  selectedVersion,
 }) {
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
@@ -66,7 +68,27 @@ function MessagesRenderer({
 
     return (
       <MessageBox ref={rowRef} style={messageStyle}>
+        <Grid
+          sx={{
+            flex: '1', 
+            display: 'flex', 
+            justifyContent: 'center',
+            alignItems: 'flex-start',
+            marginTop: '1rem'
+          }}
+        >
+          <img
+            alt={`${selectedVersion?.id}`}
+            src={`${selectedVersion?.icon}`}
+            style={{
+              width: '50px',
+              height: '50px',
+              marginRight: '0.5rem',
+            }}
+          />
+        </Grid>
         <MarkdownRendererGridContainer>
+          
           <Typography
             variant='h6' 
             sx={{
@@ -123,7 +145,7 @@ function MessagesRenderer({
         }}
       >
         <Typography>
-          Ask {palName} Anything!
+          Ask {selectedVersion.name} Anything!
         </Typography>
       </Grid>
     </Grid>

@@ -32,7 +32,7 @@ const MessageBox = styled(Paper)(({ theme }) => ({
   padding: '10px',
   margin: '10px 0',
   alignSelf: 'flex-start',
-  flexDirection: 'column',
+  // flexDirection: 'column',
   boxShadow: 'none',
   backgroundColor: 'transparent',
   color: 'white',
@@ -210,7 +210,7 @@ const CodeBlockContainer = styled(Grid)(({theme}) => ({
 }));
 
 const MarkdownRendererGridContainer = styled(Grid)(({theme}) => ({
-  flex: '10', 
+  flex: '14', 
   padding: '0.5rem', 
   display: 'flex', 
   flexWrap: 'wrap',

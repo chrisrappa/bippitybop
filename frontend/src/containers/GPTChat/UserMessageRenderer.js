@@ -13,7 +13,6 @@ export default function UserMessageRenderer({ message, style, ref }){
           flex: '9', 
           width: '100%', 
           justifyContent: 'space-between', 
-          // alignItems: 'center', 
           padding: '0.5rem',
           overflow: 'auto',
         }}
