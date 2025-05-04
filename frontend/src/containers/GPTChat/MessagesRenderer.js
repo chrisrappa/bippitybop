@@ -1,70 +1,110 @@
-import React, { memo } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { VariableSizeList as List } from 'react-window';
 import UserMessageRenderer from './UserMessageRenderer';
+import ResizeObserver from 'resize-observer-polyfill';
 import { MarkdownRendererGridContainer, MessageBox } from './styled';
 import { 
-  Card, 
   Grid, 
   Typography, 
   useMediaQuery, 
-  useTheme 
 } from '@mui/material';
 import MarkdownRenderer from './MarkdownRenderer';
-import examplePromptButtons from './examplePromptButtons';
-import { useNavigate } from 'react-router-dom';
-import gtmTrackButtonClick from '../../utils/gtmTrackButtonClick';
+import AutoSizer from 'react-virtualized-auto-sizer';
 
-
-const MessagesRenderer = memo(function MessagesRenderer({
+function MessagesRenderer({
   messages, 
-  submitDemoMessage
+  palName,
 }) {
-  
-  const theme = useTheme();
-  const navigate = useNavigate();
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
-  const handleDemoCardClick = (button) => {
-    if(button?.link){
-      navigate('/faq');
-    } else {
-      submitDemoMessage(button?.textContent);
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+  const listRef = useRef();
+  const sizeMap = useRef({});
+
+  const getItemSize = index => {
+    return sizeMap.current[index] || 100; // Default height
+  };
+
+  const setItemSize = (index, size) => {
+    sizeMap.current[index] = size;
+    if (listRef.current) {
+      listRef.current.resetAfterIndex(index);
+    }
+  };
+
+  const MessageRow = ({ index, style }) => {
+    const message = messages[index];
+    const rowRef = useRef();
+
+    useEffect(() => {
+      if (!rowRef.current) return;
+
+      const observer = new ResizeObserver(entries => {
+        for (let entry of entries) {
+          const height = entry.borderBoxSize[0]?.blockSize || 
+                        entry.target.getBoundingClientRect().height;
+          console.log(`Message ${index} actual height:`, height);
+          setItemSize(index, height);
+        }
+      });
+
+      observer.observe(rowRef.current);
+
+      return () => observer.disconnect();
+    }, [index]);
+
+    const messageStyle = {
+      ...style,
+      height: 'auto', // Allow content to determine height
+      minHeight: style.height // Maintain minimum height from virtualization
     };
+
+    if (message.role === 'user') {
+      return (
+        <UserMessageRenderer ref={rowRef} style={messageStyle} message={message} />
+      );
+    }
+
+    return (
+      <MessageBox ref={rowRef} style={messageStyle}>
+        <MarkdownRendererGridContainer>
+          <Typography
+            variant='h6' 
+            sx={{
+              marginLeft: '0.5rem', 
+              textWrap: 'wrap',
+              color: '#373737',
+              height: '100%'
+            }}
+          >
+            <MarkdownRenderer content={message?.content} />
+          </Typography>
+        </MarkdownRendererGridContainer>
+      </MessageBox>
+    );
   };
 
   const renderMessages = () => {
-    if(!messages.length) return null;
+    if (!messages.length) return null;
 
-    return messages.map((message, index) => {
-      if(message.role === 'user'){
-        return (
-          <UserMessageRenderer
-            key={`user-message-${index}`}
-            message={message} 
-          />
-        )
-      }
-      
-      return (
-        <MessageBox key={`ai-message-${index}`}>
-          <MarkdownRendererGridContainer>
-            <Typography
-              variant='h6' 
-              sx={{
-                marginLeft: '0.5rem', 
-                textWrap: 'wrap',
-                color: '#373737',
-                height: '100%'
-              }}
-            >
-              <MarkdownRenderer content={message?.content} />
-            </Typography>
-          </MarkdownRendererGridContainer>
-        </MessageBox>
-      )
-    });
+    return (
+      <AutoSizer>
+        {({ height, width }) => (
+          <List
+            ref={listRef}
+            height={height}
+            itemCount={messages.length}
+            itemSize={getItemSize}
+            width={width}
+            overscanCount={5}
+          >
+            {MessageRow}
+          </List>
+        )}
+      </AutoSizer>
+    );
   };
 
-  const renderExamplePrompts = () => (
+  const renderPlaceholder = () => (
     <Grid
       sx={{
         height: '95%',
@@ -82,54 +122,14 @@ const MessagesRenderer = memo(function MessagesRenderer({
           marginLeft: isMobile && '1rem',
         }}
       >
-        {examplePromptButtons.map((button, index) => (
-          <Card
-            elevation={3}
-            key={`example-prompt-${index}`}
-            sx={{
-              minWidth: isMobile ? '15rem' : '12rem',
-              height: isMobile ? '5rem' : '8rem',
-              borderRadius: '1rem',
-              aspectRatio: '1/1',
-              bgcolor: button.link ? 'primary.main' : 'none',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'flex-start',
-              padding: '1rem',
-              cursor: 'pointer',
-              flexBasis: '1',
-              marginRight: '1rem',
-              color: button?.link ? 'white' : 'black',
-              border: `1px solid ${theme.palette.primary.main}`
-            }}
-            onClick={(e) => {
-              gtmTrackButtonClick(e, 'click_example_prompt')
-              handleDemoCardClick(button)
-            }}
-          >
-            {!isMobile && (
-              <Grid sx={{ marginBottom: '1rem' }}>
-                {button?.icon}
-              </Grid>
-            )}
-            <Typography>{button?.title}</Typography>
-          </Card>
-        ))}
+        <Typography>
+          Ask {palName} Anything!
+        </Typography>
       </Grid>
     </Grid>
   );
 
-  return messages.length ? renderMessages() : renderExamplePrompts();
-}, (prevProps, nextProps) => {
-  // Custom comparison function
-  // Return true if we DON'T want the component to update
-  return (
-    prevProps.messages === nextProps.messages &&
-    prevProps.anchorEl === nextProps.anchorEl &&
-    prevProps.selectedFolder === nextProps.selectedFolder &&
-    prevProps.addNewFolder === nextProps.addNewFolder
-  );
-});
+  return messages.length ? renderMessages() : renderPlaceholder();
+};
 
 export default MessagesRenderer;

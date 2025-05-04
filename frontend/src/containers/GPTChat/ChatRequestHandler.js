@@ -11,9 +11,6 @@ async function ChatRequestHandler({
 
   const preferredModel = selectedVersion?.preferredModel ?? 'openai';
 
-  console.log('preferredModel', preferredModel)
-  console.log('updatedMessages', updatedMessages)
-
   const saveMessagesToLocalStorage = (messages, maxMessages = 10) => {
     if (messages.length > maxMessages) {
       messages = messages.slice(-maxMessages);

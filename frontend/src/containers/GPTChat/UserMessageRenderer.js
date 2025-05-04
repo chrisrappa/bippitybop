@@ -3,10 +3,10 @@ import { UserMessageBox } from "./styled";
 import { handleToHTML } from "./helpers";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-export default function UserMessageRenderer({ message }){
+export default function UserMessageRenderer({ message, style, ref }){
 
   return (
-    <UserMessageBox>
+    <UserMessageBox style={style} ref={ref}>
       <Grid
         sx={{
           display: 'flex', 
