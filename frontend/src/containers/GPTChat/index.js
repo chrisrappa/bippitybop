@@ -163,7 +163,7 @@ function GPTChat() {
         }}
       >
         <ChatContainer ref={chatContainerRef}>
-          <MessagesRenderer messages={ messages } />
+          <MessagesRenderer messages={ messages } palName={selectedVersion.name} />
         </ChatContainer>
       </Grid>
       <Grid 

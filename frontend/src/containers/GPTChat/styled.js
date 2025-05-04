@@ -41,6 +41,7 @@ const MessageBox = styled(Paper)(({ theme }) => ({
   overflowWrap: 'break-word',
   wordWrap: 'break-word',
   wordBreak: 'break-word',
+  height: '50px'
 }));
 
 const UserMessageBox = styled(MessageBox)(({theme}) => ({
