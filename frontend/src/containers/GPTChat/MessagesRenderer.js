@@ -2,34 +2,18 @@ import React, { memo } from 'react';
 import UserMessageRenderer from './UserMessageRenderer';
 import { MarkdownRendererGridContainer, MessageBox } from './styled';
 import { 
-  Card, 
   Grid, 
   Typography, 
   useMediaQuery, 
-  useTheme 
 } from '@mui/material';
 import MarkdownRenderer from './MarkdownRenderer';
-import examplePromptButtons from './examplePromptButtons';
-import { useNavigate } from 'react-router-dom';
-import gtmTrackButtonClick from '../../utils/gtmTrackButtonClick';
 
 
 const MessagesRenderer = memo(function MessagesRenderer({
   messages, 
-  submitDemoMessage
+  palName,
 }) {
-  
-  const theme = useTheme();
-  const navigate = useNavigate();
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
-
-  const handleDemoCardClick = (button) => {
-    if(button?.link){
-      navigate('/faq');
-    } else {
-      submitDemoMessage(button?.textContent);
-    };
-  };
 
   const renderMessages = () => {
     if(!messages.length) return null;
@@ -64,7 +48,7 @@ const MessagesRenderer = memo(function MessagesRenderer({
     });
   };
 
-  const renderExamplePrompts = () => (
+  const renderPlaceholder = () => (
     <Grid
       sx={{
         height: '95%',
@@ -82,45 +66,14 @@ const MessagesRenderer = memo(function MessagesRenderer({
           marginLeft: isMobile && '1rem',
         }}
       >
-        {examplePromptButtons.map((button, index) => (
-          <Card
-            elevation={3}
-            key={`example-prompt-${index}`}
-            sx={{
-              minWidth: isMobile ? '15rem' : '12rem',
-              height: isMobile ? '5rem' : '8rem',
-              borderRadius: '1rem',
-              aspectRatio: '1/1',
-              bgcolor: button.link ? 'primary.main' : 'none',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'flex-start',
-              padding: '1rem',
-              cursor: 'pointer',
-              flexBasis: '1',
-              marginRight: '1rem',
-              color: button?.link ? 'white' : 'black',
-              border: `1px solid ${theme.palette.primary.main}`
-            }}
-            onClick={(e) => {
-              gtmTrackButtonClick(e, 'click_example_prompt')
-              handleDemoCardClick(button)
-            }}
-          >
-            {!isMobile && (
-              <Grid sx={{ marginBottom: '1rem' }}>
-                {button?.icon}
-              </Grid>
-            )}
-            <Typography>{button?.title}</Typography>
-          </Card>
-        ))}
+        <Typography>
+          Ask {palName} Anything!
+        </Typography>
       </Grid>
     </Grid>
   );
 
-  return messages.length ? renderMessages() : renderExamplePrompts();
+  return messages.length ? renderMessages() : renderPlaceholder();
 }, (prevProps, nextProps) => {
   // Custom comparison function
   // Return true if we DON'T want the component to update

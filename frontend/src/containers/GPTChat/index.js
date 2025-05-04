@@ -12,12 +12,6 @@ import { useTheme } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ChatContainer, ChatInputContainer } from './styled';
 import { MESSAGES_COLLECTION_SAVE_SUCCESS } from '../../consts/gptChatConstants';
-import { 
-  createClaudeSonnetRequest, 
-  createGrokRequest, 
-  createOpenAIRequest, 
-  createPerplexityRequest 
-} from './helpers';
 import { debounce } from 'lodash';
 import { useLocation } from 'react-router-dom';
 import InputField from './InputField.js';
@@ -68,25 +62,6 @@ function GPTChat() {
     const text = window.getSelection().toString();
     e.clipboardData.setData('text/plain', text);
   });
-
-  const submitDemoMessage = debounce(async(demoMessage) => {
-    const updatedMessages = [...messages, { role: 'user', content: demoMessage }];
-    setMessages(updatedMessages);
-
-    try {
-
-      await createOpenAIRequest(
-        updatedMessages, 
-        selectedVersion ?? previouslySelectedVersion, 
-        setMessages,
-        setStopGenerating,
-        setResponseLoading,
-        stopGenerating,
-      );
-    } catch (error) {
-      console.error('Error sending message:', error);
-    }
-  }, 300);
 
   const handleSendDebounced = debounce(async(userMessage) => {
     const updatedMessages = [...messages, { role: 'user', content: userMessage }];
@@ -188,10 +163,7 @@ function GPTChat() {
         }}
       >
         <ChatContainer ref={chatContainerRef}>
-          <MessagesRenderer
-            messages={ messages }
-            submitDemoMessage={ submitDemoMessage }
-          />
+          <MessagesRenderer messages={ messages } />
         </ChatContainer>
       </Grid>
       <Grid 
@@ -204,16 +176,16 @@ function GPTChat() {
           justifyContent: 'center', 
           alignItems: 'center',
           padding: isMobile && '0 0.5rem',
-          position: 'relative' // Add this
+          position: 'relative'
         }}
       >
         <ChatInputContainer
           sx={{
-            position: 'absolute', // Add this
-            bottom: 0, // Add this
-            width: '100%', // Add this if needed
+            position: 'absolute',
+            bottom: 0,
+            width: '100%',
             display: 'flex',
-            alignItems: 'flex-end' // Add this to keep everything aligned at the bottom
+            alignItems: 'flex-end'
           }}
         >
           <InputField 
