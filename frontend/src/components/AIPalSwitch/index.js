@@ -5,7 +5,7 @@ import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Grow from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
-import { Grid, Typography } from '@mui/material';
+import { Chip, Grid, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateGPTVersion } from '../../actions/gptChatActions';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -139,15 +139,15 @@ export default function AIPalSwitch() {
                     <Grid
                       item
                       key={option.id}
-                      onClick={(event) => handleMenuItemClick(event, option.id)}
+                      onClick={(event) => option.enabled && handleMenuItemClick(event, option.id)}
                       sx={{
                         border:
                           option.name === selectedVersion?.name
-                            ? '2px solid #1976d2'
+                            ? '2px solid #52985b'
                             : '1px solid #ccc',
                         borderRadius: '0.5rem',
                         padding: '0.5rem',
-                        backgroundColor: '#fff',
+                        backgroundColor: option.enabled ? '#fff' : '#ececec',
                         display: 'flex',
                         alignItems: 'center',
                         cursor: 'pointer',
@@ -171,6 +171,11 @@ export default function AIPalSwitch() {
                       <Grid item flex={'3'}>
                         <Typography variant="h6" noWrap>
                           {option.name}
+                          {
+                            !option.enabled && (
+                              <Chip label="Coming Soon!" variant="outlined" sx={{ marginLeft: '0.5rem'}}/>
+                            )
+                          }
                         </Typography>
                         <Typography variant="body2" noWrap>
                           {option.subtext}

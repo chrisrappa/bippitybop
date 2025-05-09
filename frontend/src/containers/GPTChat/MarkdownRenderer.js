@@ -6,15 +6,104 @@ import { okaidia } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { CodeBlockContainer } from './styled';
 import ReactHTMLParser from 'react-html-parser';
 import rehypeRaw from 'rehype-raw';
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery, Typography } from '@mui/material';
+import { BlockMath, InlineMath } from 'react-katex';
 import remarkGfm from 'remark-gfm';
+import 'katex/dist/katex.min.css';
 
 const MarkdownRenderer = ({ content }) => {
 
   // Sometimes this defaults text to bold
 
 	const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+  // Helper function to parse content and identify LaTeX
+  const parseContent = (content) => {
+    // Match content between $$ for block math
+    const blockMathRegex = /\$\$(.*?)\$\$/g;
+    // Match content between $ for inline math
+    const inlineMathRegex = /\$(.*?)\$/g;
+    
+    let parts = [];
+    let lastIndex = 0;
+    
+    // Handle block math
+    content.replace(blockMathRegex, (match, latex, offset) => {
+      // Add text before the math
+      if (offset > lastIndex) {
+        parts.push({
+          type: 'text',
+          content: content.slice(lastIndex, offset)
+        });
+      }
+      // Add the math
+      parts.push({
+        type: 'blockMath',
+        content: latex
+      });
+        lastIndex = offset + match.length;
+    });
+
+    // Handle remaining text
+    if (lastIndex < content.length) {
+      let remainingContent = content.slice(lastIndex);
+      // Process inline math in remaining content
+      let inlineParts = [];
+      let lastInlineIndex = 0;
+
+      remainingContent.replace(inlineMathRegex, (match, latex, offset) => {
+        if (offset > lastInlineIndex) {
+          inlineParts.push({
+            type: 'text',
+            content: remainingContent.slice(lastInlineIndex, offset)
+          });
+        }
+        inlineParts.push({
+          type: 'inlineMath',
+          content: latex
+        });
+        lastInlineIndex = offset + match.length;
+      });
+
+      if (lastInlineIndex < remainingContent.length) {
+        inlineParts.push({
+          type: 'text',
+          content: remainingContent.slice(lastInlineIndex)
+        });
+      }
+
+      parts = [...parts, ...inlineParts];
+    }
+
+    return parts;
+  };
+
+  const LatexRenderer = ({ content }) => {
+    const parts = parseContent(content);
   
+    return (
+      <Typography
+        variant='h6' 
+        sx={{
+          marginLeft: '0.5rem', 
+          textWrap: 'wrap',
+          color: '#373737',
+          height: '100%'
+        }}
+      >
+        {parts.map((part, index) => {
+          switch (part.type) {
+            case 'blockMath':
+              return <BlockMath key={index} math={part.content} />;
+            case 'inlineMath':
+              return <InlineMath key={index} math={part.content} />;
+            default:
+              return <span key={index}>{part.content}</span>;
+          }
+        })}
+      </Typography>
+    );
+  };
+    
   const handleToHTML = (data) => {
     // First, convert the markdown table to HTML table
     const convertMarkdownTableToHTML = (markdown) => {
